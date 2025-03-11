@@ -1,7 +1,16 @@
+'use client';
+import { DialogTrigger } from '@radix-ui/react-dialog';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
+import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
+import AuthForm from './AuthForm';
 
 const Header = () => {
+  const [dialogType, setDialogType] = useState<'signIn' | 'signUp' | null>(
+    null
+  );
+  const [loading, setLoading] = useState(false);
+
   return (
     <div className=' border-b border-[#EDEDED]'>
       <div className='max-w-[80rem] mx-auto px-4 py-2'>
@@ -19,12 +28,26 @@ const Header = () => {
             </p>
           </div>
           <div className=' flex items-center gap-2'>
-            <button className='px-[10px] py-[5px] flex items-center justify-center border border-[hsla(0,0%,6%,0.15)] text-[#181818] rounded-md text-xs cursor-pointer font-semibold '>
-              Sign in
-            </button>
-            <button className='px-[10px] py-[5px] flex items-center justify-center border border-[#4A5CFF] bg-[#4A5CFF] text-[#fff] rounded-md text-xs cursor-pointer font-semibold '>
-              Sign up
-            </button>
+            <Dialog>
+              <DialogTrigger asChild>
+                <button
+                  className='px-[10px] py-[5px] flex items-center justify-center border border-[hsla(0,0%,6%,0.15)] text-[#181818] rounded-md text-xs cursor-pointer font-semibold '
+                  onClick={() => setDialogType('signIn')}
+                >
+                  Sign in
+                </button>
+              </DialogTrigger>
+            </Dialog>
+            <Dialog>
+              <DialogTrigger asChild>
+                <button
+                  className='px-[10px] py-[5px] flex items-center justify-center border border-[#4A5CFF] bg-[#4A5CFF] text-[#fff] rounded-md text-xs cursor-pointer font-semibold '
+                  onClick={() => setDialogType('signUp')}
+                >
+                  Sign up
+                </button>
+              </DialogTrigger>
+            </Dialog>
           </div>
         </div>
         <div className='flex items-center gap-1 pt-5'>
@@ -47,6 +70,25 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <Dialog
+        open={dialogType !== null}
+        onOpenChange={(open) => {
+          if (loading) return;
+          if (!open) setDialogType(null);
+        }}
+      >
+        <DialogContent className='w-[28rem]'>
+          <DialogTitle className=' text-lg font-bold !text-[#181818] opacity-80'>
+            {dialogType === 'signIn' ? 'Sign In' : 'Sign Up'}
+          </DialogTitle>
+          <AuthForm
+            dialogType={dialogType}
+            setDialogType={setDialogType}
+            setLoading={setLoading}
+            loading={loading}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
