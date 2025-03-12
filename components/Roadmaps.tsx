@@ -8,24 +8,40 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu';
 import Board from './Board';
+import { AppSdk } from '@/utils/sdk/AppSDK';
+import { Post } from '@prisma/client';
 
 const options = [
   { label: 'Show all', disabled: false, value: 'show-all' },
   { label: 'Public Boards', disabled: true, value: '' },
-  { label: 'Bugs & Fixes', disabled: false, value: 'bugs-fixes' },
-  { label: 'Feature Requests', disabled: false, value: 'feature-requests' },
-  { label: 'Integrations', disabled: false, value: 'integrations' },
+  { label: 'Bugs & Fixes', disabled: false, value: 'BUGS_FIXES' },
+  { label: 'Feature Requests', disabled: false, value: 'FEATURES_REQUESTS' },
+  { label: 'Integrations', disabled: false, value: 'INTEGRATIONS' },
 ];
 
 const Roadmaps = () => {
   const [selected, setSelected] = useState('show-all');
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(selected);
+    const fetchPosts = async () => {
+      setLoading(true);
+      try {
+        const boardParam = selected !== 'show-all' ? `?board=${selected}` : '';
+        const res = await AppSdk.getData(`/api/post${boardParam}`, null);
+        setPosts(res);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchPosts();
   }, [selected]);
 
   return (
-    <div className='max-w-[62rem] mx-auto pt-2 flex flex-col gap-5 px-4'>
+    <div className='max-w-[64rem] mx-auto pt-2 flex flex-col gap-5 px-4'>
       <div className=' flex items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-2'>
         <div className='flex flex-col gap-2'>
           <h3 className='text-lg font-semibold'>Roadmaps</h3>
@@ -67,7 +83,7 @@ const Roadmaps = () => {
           </DropdownMenu>
         </div>
       </div>
-      <Board />
+      <Board posts={posts} loading={loading} />
     </div>
   );
 };
