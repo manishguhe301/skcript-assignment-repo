@@ -4,12 +4,14 @@ import Image from 'next/image';
 import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
 import AuthForm from './AuthForm';
+import { useUser } from '@/utils/hooks/useUser';
 
 const Header = () => {
   const [dialogType, setDialogType] = useState<'signIn' | 'signUp' | null>(
     null
   );
   const [loading, setLoading] = useState(false);
+  const { user } = useUser();
 
   return (
     <div className=' border-b border-[#EDEDED]'>
@@ -27,28 +29,32 @@ const Header = () => {
               FeatureOS
             </p>
           </div>
-          <div className=' flex items-center gap-2'>
-            <Dialog>
-              <DialogTrigger asChild>
-                <button
-                  className='px-[10px] py-[5px] flex items-center justify-center border border-[hsla(0,0%,6%,0.15)] text-[#181818] rounded-md text-xs cursor-pointer font-semibold '
-                  onClick={() => setDialogType('signIn')}
-                >
-                  Sign in
-                </button>
-              </DialogTrigger>
-            </Dialog>
-            <Dialog>
-              <DialogTrigger asChild>
-                <button
-                  className='px-[10px] py-[5px] flex items-center justify-center border border-[#4A5CFF] bg-[#4A5CFF] text-[#fff] rounded-md text-xs cursor-pointer font-semibold '
-                  onClick={() => setDialogType('signUp')}
-                >
-                  Sign up
-                </button>
-              </DialogTrigger>
-            </Dialog>
-          </div>
+          {user?.id ? (
+            <div>hi</div>
+          ) : (
+            <div className=' flex items-center gap-2'>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button
+                    className='px-[10px] py-[5px] flex items-center justify-center border border-[hsla(0,0%,6%,0.15)] text-[#181818] rounded-md text-xs cursor-pointer font-semibold '
+                    onClick={() => setDialogType('signIn')}
+                  >
+                    Sign in
+                  </button>
+                </DialogTrigger>
+              </Dialog>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <button
+                    className='px-[10px] py-[5px] flex items-center justify-center border border-[#4A5CFF] bg-[#4A5CFF] text-[#fff] rounded-md text-xs cursor-pointer font-semibold '
+                    onClick={() => setDialogType('signUp')}
+                  >
+                    Sign up
+                  </button>
+                </DialogTrigger>
+              </Dialog>
+            </div>
+          )}
         </div>
         <div className='flex items-center gap-1 pt-5'>
           <div className='flex items-center justify-center px-[6px] py-0 gap-1 hover:text-[#4A5CFF] transition-all duration-75 cursor-pointer uppercase text-[10px] !font-bold text-[#181818] opacity-70 hover:opacity-100 '>

@@ -1,6 +1,9 @@
 'use client';
 import React, { useState } from 'react';
 import { Spinner } from './Spinner';
+import { toast } from 'sonner';
+import { useUser } from '@/utils/hooks/useUser';
+import { AppSdk } from '@/utils/sdk/AppSDK';
 
 const AuthForm = ({
   dialogType,
@@ -21,14 +24,44 @@ const AuthForm = ({
     name: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const { saveUser } = useUser();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
-      setDialogType(null);
+
+    try {
+      if (dialogType === 'signIn') {
+        const res = await AppSdk.postData('/api/auth/signin', data);
+        saveUser(res.data);
+      } else {
+        const res = await AppSdk.postData('/api/auth/signup', data);
+        saveUser(res.data);
+      }
+      toast.success('Success', {
+        description:
+          dialogType === 'signIn'
+            ? 'You have successfully signed in'
+            : 'You have successfully signed up',
+        duration: 5000,
+      });
+    } catch (error) {
+      console.log(error);
+      let errorMessage = 'Something went wrong';
+      if (typeof error === 'object' && error !== null && 'error' in error) {
+        errorMessage = String(error.error);
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      toast.error('Signup Failed', {
+        description: `Error: ${errorMessage}`,
+        duration: 5000,
+      });
+    } finally {
       setLoading(false);
-    }, 20000);
+      setDialogType(null);
+    }
   };
 
   return (
