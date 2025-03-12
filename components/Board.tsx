@@ -120,14 +120,14 @@ const Board = ({ posts, loading }: { posts: Post[]; loading: boolean }) => {
   }, [user]);
 
   return (
-    <div className='h-[calc(100vh-175px)] pb-4 '>
+    <div className='h-[calc(100vh-175px)] pb-4 max-md:overflow-x-scroll w-full'>
       <DndContext
         collisionDetection={closestCorners}
         onDragStart={handleDragStart}
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <div className='grid grid-cols-3 gap-3  overflow-y-hidden h-full'>
+        <div className='grid grid-cols-3 gap-3  overflow-y-hidden h-full max-md:w-[66rem] max-md:!overflow-x-scroll  '>
           <div className='rounded-md bg-[#F8F8F8] border border-[#ECECEC] px-3 py-2'>
             <div
               className={`text-sm border-b py-1 font-semibold border-[#E8E8E8] flex items-center gap-1 text-[#EC4899]`}

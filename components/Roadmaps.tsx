@@ -41,7 +41,7 @@ const Roadmaps = () => {
   }, [selected]);
 
   return (
-    <div className='max-w-[66rem] mx-auto pt-2 flex flex-col gap-5 px-4'>
+    <div className='max-w-[66rem] mx-auto pt-2 flex flex-col gap-5 px-4 overflow-x-hidden'>
       <div className=' flex items-center justify-between max-sm:flex-col max-sm:items-start max-sm:gap-2'>
         <div className='flex flex-col gap-2'>
           <h3 className='text-lg font-semibold'>Roadmaps</h3>
