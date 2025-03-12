@@ -5,13 +5,20 @@ import React, { useState } from 'react';
 import { Dialog, DialogContent, DialogTitle } from './ui/dialog';
 import AuthForm from './AuthForm';
 import { useUser } from '@/utils/hooks/useUser';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 
 const Header = () => {
   const [dialogType, setDialogType] = useState<'signIn' | 'signUp' | null>(
     null
   );
   const [loading, setLoading] = useState(false);
-  const { user } = useUser();
+  const { user, logout } = useUser();
 
   return (
     <div className=' border-b border-[#EDEDED]'>
@@ -30,13 +37,30 @@ const Header = () => {
             </p>
           </div>
           {user?.id ? (
-            <div>hi</div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className='flex items-center gap-2 cursor-pointer'>
+                  <Avatar>
+                    <AvatarImage src='https://github.com/shadcn.png' />
+                    <AvatarFallback>{user.name}</AvatarFallback>
+                  </Avatar>
+                  <p className=' text-[0.9375rem] font-semibold text-[#181818] opacity-80'>
+                    Hi {user.name}!
+                  </p>
+                </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className='w-fit'>
+                <DropdownMenuLabel className='cursor-pointer' onClick={logout}>
+                  Logout
+                </DropdownMenuLabel>
+              </DropdownMenuContent>
+            </DropdownMenu>
           ) : (
             <div className=' flex items-center gap-2'>
               <Dialog>
                 <DialogTrigger asChild>
                   <button
-                    className='px-[10px] py-[5px] flex items-center justify-center border border-[hsla(0,0%,6%,0.15)] text-[#181818] rounded-md text-xs cursor-pointer font-semibold '
+                    className='px-[10px] py-[5px] flex items-center justify-center border border-[hsla(0,0%,6%,0.15)] text-[#181818] rounded-sm text-xs cursor-pointer font-medium'
                     onClick={() => setDialogType('signIn')}
                   >
                     Sign in
@@ -46,7 +70,7 @@ const Header = () => {
               <Dialog>
                 <DialogTrigger asChild>
                   <button
-                    className='px-[10px] py-[5px] flex items-center justify-center border border-[#4A5CFF] bg-[#4A5CFF] text-[#fff] rounded-md text-xs cursor-pointer font-semibold '
+                    className='px-[10px] py-[5px] flex items-center justify-center border border-[#4A5CFF] bg-[#4A5CFF] text-[#fff] rounded-sm text-xs cursor-pointer font-medium'
                     onClick={() => setDialogType('signUp')}
                   >
                     Sign up
