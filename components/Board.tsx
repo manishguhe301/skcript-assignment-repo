@@ -110,12 +110,14 @@ const Board = ({ posts, loading }: { posts: Post[]; loading: boolean }) => {
   };
 
   useEffect(() => {
-    if (!user) {
-      setTimeout(() => {
+    if (user === null || user === undefined) {
+      const timeout = setTimeout(() => {
         toast.error('You must be logged in to use the Drag and Drop feature');
       }, 1000);
+
+      return () => clearTimeout(timeout);
     }
-  }, []);
+  }, [user]);
 
   return (
     <div className='h-[calc(100vh-175px)] pb-4 '>

@@ -1,5 +1,6 @@
 import { User } from '@prisma/client';
 import { useState, useEffect } from 'react';
+import { toast } from 'sonner';
 
 export const useUser = () => {
   const [user, setUser] = useState<Omit<User, 'password'> | null>(null);
@@ -39,6 +40,7 @@ export const useUser = () => {
     setUser(null);
     localStorage.removeItem('user');
     window.dispatchEvent(new Event('storage'));
+    toast.success('Logged out successfully');
   };
 
   return { user, saveUser, logout };
