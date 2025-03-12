@@ -4,6 +4,8 @@ import { Spinner } from './elements/Spinner';
 import { toast } from 'sonner';
 import { useUser } from '@/utils/hooks/useUser';
 import { AppSdk } from '@/utils/sdk/AppSDK';
+import { FaEye } from 'react-icons/fa';
+import { FaEyeSlash } from 'react-icons/fa';
 
 const AuthForm = ({
   dialogType,
@@ -126,7 +128,7 @@ const AuthForm = ({
             className='absolute right-3 top-1/2 transform -translate-y-1/2 text-[#181818] opacity-70 !text-base cursor-pointer material-symbols-outlined'
             onClick={() => setShowPassword(!showPassword)}
           >
-            {showPassword ? 'visibility_off' : 'visibility'}
+            {showPassword ? <FaEye /> : <FaEyeSlash />}
           </span>
         </div>
       </div>
