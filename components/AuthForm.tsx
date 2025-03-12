@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { Spinner } from './Spinner';
+import { Spinner } from './elements/Spinner';
 import { toast } from 'sonner';
 import { useUser } from '@/utils/hooks/useUser';
 import { AppSdk } from '@/utils/sdk/AppSDK';

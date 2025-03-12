@@ -19,3 +19,25 @@ model User {
   email    String @unique
   password String
 }
+
+enum Status {
+  TODO
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum Board {
+  BUGS_FIXES
+  FEATURES_REQUESTS
+  INTEGRATIONS
+}
+
+model Post {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  upvoters  Int      @default(0)
+  status    Status
+  board     Board
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
