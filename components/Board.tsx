@@ -130,7 +130,7 @@ const Board = ({ posts, loading }: { posts: Post[]; loading: boolean }) => {
         <div className='grid grid-cols-3 gap-3  overflow-y-hidden h-full'>
           <div className='rounded-md bg-[#F8F8F8] border border-[#ECECEC] px-3 py-2'>
             <div
-              className={`text-xs border-b py-1 font-semibold border-[#E8E8E8] flex items-center gap-1 text-[#EC4899]`}
+              className={`text-sm border-b py-1 font-semibold border-[#E8E8E8] flex items-center gap-1 text-[#EC4899]`}
             >
               <MaskedDiv bg='#EC4899' url='/icons/todo.svg' />
               Planned
@@ -173,7 +173,7 @@ const Board = ({ posts, loading }: { posts: Post[]; loading: boolean }) => {
           </div>
           <div className='rounded-md bg-[#F8F8F8] border border-[#ECECEC] px-3 py-2'>
             <div
-              className={`text-xs border-b py-1 font-semibold border-[#E8E8E8] flex items-center gap-1 text-[#FFAA00]`}
+              className={`text-sm border-b py-1 font-semibold border-[#E8E8E8] flex items-center gap-1 text-[#FFAA00]`}
             >
               <MaskedDiv bg='#FFAA00' url='/icons/cook.svg' />
               In Progress
@@ -221,7 +221,7 @@ const Board = ({ posts, loading }: { posts: Post[]; loading: boolean }) => {
           </div>
           <div className='rounded-md bg-[#F8F8F8] border border-[#ECECEC] px-3 py-2'>
             <div
-              className={`text-xs border-b py-1 font-semibold border-[#E8E8E8] flex items-center gap-1 text-[#059669]`}
+              className={`text-sm border-b py-1 font-semibold border-[#E8E8E8] flex items-center gap-1 text-[#059669]`}
             >
               <MaskedDiv bg='#059669' url='/icons/flag.svg' />
               Completed{' '}
