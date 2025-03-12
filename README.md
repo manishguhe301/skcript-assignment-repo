@@ -2,7 +2,23 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, Clone the repository:
+
+```bash
+git clone https://github.com/manishguhe301/skcript-assignment-repo.git
+```
+
+Secondly, Install the dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm
+```
+
+Lastly, run the development server:
 
 ```bash
 npm run dev
@@ -12,6 +28,12 @@ yarn dev
 pnpm dev
 # or
 bun dev
+```
+
+Dont Forget to add .env file with the following variables:
+
+```bash
+DATABASE_URL - your database url
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
